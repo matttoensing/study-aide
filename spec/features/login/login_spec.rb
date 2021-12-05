@@ -7,6 +7,8 @@ require 'rails_helper'
 
        visit '/'
 
+       expect(page).to have_content('Welcome to Study Aide')
+       
        fill_in :email, with: user.email
        fill_in :password, with: user.password
        click_on 'Login'
