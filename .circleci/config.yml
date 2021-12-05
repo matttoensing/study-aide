@@ -24,7 +24,7 @@ jobs:
       - image: circleci/postgres:9.6-alpine
         environment:
           POSTGRES_USER: postgres
-          POSTGRES_DB: study_aide_test
+          POSTGRES_DB: study-aide_test
     environment:
       BUNDLE_PATH: vendor/bundle
       BUNDLE_JOBS: 3

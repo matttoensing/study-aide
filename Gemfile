@@ -18,6 +18,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'factory_bot_rails'
 gem 'faker'
 gem 'rubocop-rails', require: false
+gem 'mini_racer', platform: :ruby
+
 gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
