@@ -18,8 +18,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'factory_bot_rails'
 gem 'faker'
 gem 'rubocop-rails', require: false
-gem 'execjs'
-gem 'therubyracer', platform: :ruby
+gem 'mini_racer', platform: :ruby
 
 group :development, :test do
   gem 'rspec-rails'
