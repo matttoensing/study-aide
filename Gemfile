@@ -21,8 +21,6 @@ gem 'rubocop-rails', require: false
 gem 'execjs'
 gem 'therubyracer', platform: :ruby
 
-gem 'bootsnap', '>= 1.1.0', require: false
-
 group :development, :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers', '~> 3.1'
