@@ -23,12 +23,14 @@
   <% @quiz.questions.each do |question| %>
    <div id="question-<%= question.id %>">
   <tbody>
-    <tr>
+    <tr class="table-light">
       <th scope="row"><%= @quiz.questions.index(question) + 1 %></th>
       <td><%= question.question %></td>
       <td><%= question.answer.answer %></td>
-      <td><%= button_to 'Edit', "/quizzes/#{@quiz.id}/questions/#{question.id}/edit", method: :patch %></td>
-      <td><%= button_to 'Delete', "/quizzes/#{@quiz.id}/questions/#{question.id}", method: :delete %></td>
+      <td><%= button_to 'Edit Question', "/quizzes/#{@quiz.id}/questions/#{question.id}/edit", method: :patch, class: 'btn btn-warning' %><br>
+      <%= button_to 'Edit Answer', "/questions/#{question.id}/answers/#{question.answer.id}/edit", method: :patch, class: 'btn btn-warning' %></td>
+      <td><%= button_to 'Delete Question', "/quizzes/#{@quiz.id}/questions/#{question.id}", method: :delete, class: 'btn btn-danger' %><br>
+      <%= button_to 'Delete Answer', "/questions/#{question.id}/answers/#{question.answer.id}", method: :delete, class: 'btn btn-warning' %></td>
     </tr>
   </tbody>
     </div>
