@@ -1,0 +1,18 @@
+<br>
+<figure class="text-center">
+  <blockquote class="blockquote">
+    <h6 class="display-2">Welcome to Study Aide</h6>
+  </blockquote>
+  </figure>
+<br>
+    <%= form_with url: '/login', method: :post, local: true do |f| %>
+    <%= f.label :email %>
+    <%= f.text_field :email, class: "form-control" %>
+    <%= f.label :password %>
+    <%= f.password_field :password, class: "form-control", id: 'password' %>
+    <br>
+    <%= f.submit 'Login', class: 'btn btn-primary' %>
+  <% end %>
+
+<br>
+  <%= link_to 'New to Viewing Party? Register Here', register_path %>
