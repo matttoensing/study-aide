@@ -11,6 +11,6 @@ Rails.application.routes.draw do
   end
 
   resources :quizzes, only: [:new, :create] do
-    resources :questions, only: [:new, :create, :update]
+    resources :questions, only: [:new, :create, :update, :destroy]
   end
 end

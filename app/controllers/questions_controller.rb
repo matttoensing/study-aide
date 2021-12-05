@@ -22,6 +22,13 @@ class QuestionsController < ApplicationController
     redirect_to "/quizzes/#{params[:quiz_id]}/questions/new"
   end
 
+  def destroy
+    question = Question.find(params[:id])
+    question.destroy
+
+    redirect_to "/quizzes/#{params[:quiz_id]}/questions/new"
+  end
+
   private
 
   def questions_params

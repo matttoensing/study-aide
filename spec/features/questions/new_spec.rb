@@ -27,7 +27,6 @@ RSpec.describe 'new questions' do
         expect(page).to have_button('Edit Question')
         expect(page).to have_button('Delete Question')
         expect(page).to have_button('Edit Answer')
-        expect(page).to have_button('Delete Answer')
       end
 
       expect(page).to have_button('Finish Question Submissions')
@@ -91,6 +90,30 @@ RSpec.describe 'new questions' do
 
         expect(page).to_not have_content(answer1.answer)
       end
+    end
+
+    it 'user can delete a question on the page' do
+      user = create(:user)
+      quiz = create(:quiz, user: user)
+      question1 = create(:question, quiz: quiz)
+      answer1 = create(:answer, question: question1)
+      question2 = create(:question, quiz: quiz)
+      answer2 = create(:answer, question: question2)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit "/quizzes/#{quiz.id}/questions/new"
+
+      within("#question-#{question1.id}") do
+        expect(page).to have_content(question1.question)
+
+        click_button 'Delete Question'
+      end
+
+      expect(current_path).to eq("/quizzes/#{quiz.id}/questions/new")
+
+      expect(page).to_not have_content(question1.question)
+      expect(page).to_not have_content(answer1.answer)
     end
   end
 end
