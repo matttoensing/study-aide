@@ -1,0 +1,5 @@
+<h3>Which Format Would You Like to Start?</h3>
+
+<%= button_to "Flashcards", "/quizzes/#{@quiz.id}/start", params: { type: :flashcards }, method: :get, class: 'btn btn-primary' %>
+
+<%= button_to "Quiz", "/quizzes/#{@quiz.id}/start", params: { type: :quiz }, method: :get, class: 'btn btn-success' %>

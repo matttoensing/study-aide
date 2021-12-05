@@ -3,5 +3,6 @@
 <p><%= @quiz.description %></p>
 <p>Number of Questions: <%= @quiz.questions.count %></p>
 
+<%= button_to 'Take Quiz', "/quizzes/#{@quiz.id}/game", method: :get %>
 <%= button_to 'Edit Quiz', "/quizzes/#{@quiz.id}/edit", method: :get %>
 <%= button_to 'Delete Quiz', "/quizzes/#{@quiz.id}", method: :delete %>
