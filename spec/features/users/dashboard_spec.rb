@@ -67,7 +67,7 @@ RSpec.describe 'users dashboard page' do
         click_button 'Visit Quiz Page'
       end
 
-      expect().to eq()
+      expect(current_path).to eq("/quizzes/#{quiz.id}")
     end
   end
 end
