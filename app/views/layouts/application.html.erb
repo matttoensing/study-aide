@@ -13,6 +13,11 @@
   </head>
 
   <body>
+    <% flash.each do |type, msg| %>
+    <div class="alert alert-warning" role="alert">
+      <%= content_tag :div, msg, class: type %>
+    </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>
