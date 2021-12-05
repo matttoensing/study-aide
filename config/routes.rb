@@ -6,7 +6,11 @@ Rails.application.routes.draw do
   post '/register', to: 'users#create'
   get '/dashboard', to: 'users#show'
 
+  resources :questions do
+    resources :answers, only: [:update]
+  end
+
   resources :quizzes, only: [:new, :create] do
-    resources :questions, only: [:new, :create]
+    resources :questions, only: [:new, :create, :update]
   end
 end

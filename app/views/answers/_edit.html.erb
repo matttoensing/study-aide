@@ -1,0 +1,4 @@
+<%= form_with url: "/questions/#{question.id}/answers/#{question.answer.id}", method: :patch, local: true do |f| %>
+  <%= f.text_field :answer, value: question.answer.answer %>
+  <%= f.submit 'Submit Answer', class: 'btn btn-success' %>
+<% end %>

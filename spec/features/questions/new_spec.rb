@@ -33,33 +33,64 @@ RSpec.describe 'new questions' do
       expect(page).to have_button('Finish Question Submissions')
     end
 
-    it 'user can edit a question or an answer' do
+    it 'user can edit a question on the page' do
       user = create(:user)
       quiz = create(:quiz, user: user)
+      question1 = create(:question, quiz: quiz)
+      answer1 = create(:answer, question: question1)
+      question2 = create(:question, quiz: quiz)
+      answer2 = create(:answer, question: question2)
+
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
       visit "/quizzes/#{quiz.id}/questions/new"
 
-      expect(page).to have_content("Submit a Question the Answer for #{quiz.name}")
-      expect(page).to_not have_button('Finish Questions')
+      within("#question-#{question1.id}") do
+        expect(page).to have_content("#{question1.question}")
 
-      fill_in :question, with: 'Which tree family is Acer?'
-      fill_in :answer, with: 'Maple'
-      click_on 'Submit'
+        click_button "Edit Question"
 
-      question = Question.last
-
-      expect(current_path).to eq("/quizzes/#{quiz.id}/questions/new")
-      expect(page).to have_content('Current Quiz Questions')
-
-      within("#question-#{question.id}") do
-        expect(page).to have_content('Which tree family is Acer?')
-        expect(page).to have_content('Maple')
-        expect(page).to have_button('Edit')
-        expect(page).to have_button('Delete')
+        fill_in :question, with: 'What is the common name for the family name Acer?'
+        click_on 'Submit Question'
       end
 
-      expect(page).to have_button('Finish Question Submissions')
+      expect(current_path).to eq("/quizzes/#{quiz.id}/questions/new")
+
+      within("#question-#{question1.id}") do
+        expect(page).to have_content('What is the common name for the family name Acer?')
+
+        expect(page).to_not have_content('Which tree family is Acer?')
+      end
+    end
+
+    it 'user can edit an answer on the page' do
+      user = create(:user)
+      quiz = create(:quiz, user: user)
+      question1 = create(:question, quiz: quiz)
+      answer1 = create(:answer, question: question1)
+      question2 = create(:question, quiz: quiz)
+      answer2 = create(:answer, question: question2)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit "/quizzes/#{quiz.id}/questions/new"
+
+      within("#question-#{question1.id}") do
+        expect(page).to have_content(answer1.answer)
+
+        click_button "Edit Answer"
+
+        fill_in :answer, with: 'Maple'
+        click_on 'Submit Answer'
+      end
+
+      expect(current_path).to eq("/quizzes/#{quiz.id}/questions/new")
+
+      within("#question-#{question1.id}") do
+        expect(page).to have_content('Maple')
+
+        expect(page).to_not have_content(answer1.answer)
+      end
     end
   end
 end
