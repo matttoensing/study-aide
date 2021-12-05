@@ -1,3 +1,30 @@
+<% if current_user %>
 <h3>Welcome <%= current_user.email %></h3>
+  <% if current_user.quizzes.empty? %>
+    <p>You have no Quizzes yet</p>
+    <%= button_to 'Create a New Quiz', '/quizzes/new', method: :get %>
+  <% else %>
 
-<%= button_to 'Create a New Quiz', '/quizzes/new', method: :get %>
+    <% current_user.quizzes.each do |quiz| %>
+      <div id="quiz-<%= quiz.id %>">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title"><%= quiz.name %></h5>
+            <h6 class="card-subtitle mb-2 text-muted"><%= quiz.subject %></h6>
+            <p class="card-text"><%= quiz.description %></p>
+            <a href="#" class="card-link"><%= button_to 'Visit Quiz Page', "/quizzes/#{quiz.id}" %></a>
+            <a href="#" class="card-link">Another link</a>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <%= button_to 'Create a New Quiz', '/quizzes/new', method: :get %>
+
+  <% end %>
+
+<% else %>
+  <h3>You are Not Logged in!</h3>
+  <%= button_to 'Log in Here', '/', method: :get %>
+  <%= button_to 'Register an Account', '/register', method: :get %>
+<% end %>
