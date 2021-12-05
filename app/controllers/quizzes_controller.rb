@@ -16,6 +16,12 @@ class QuizzesController < ApplicationController
     redirect_to new_quiz_question_path(quiz.id)
   end
 
+  def update
+    quiz = Quiz.update(params[:id], quiz_params)
+
+    redirect_to "/quizzes/#{quiz.id}"
+  end
+
   def destroy
     quiz = Quiz.find(params[:id])
     quiz.destroy
@@ -23,9 +29,9 @@ class QuizzesController < ApplicationController
     redirect_to '/dashboard'
   end
 
-  # private
-  #
-  # def quiz_params
-  #   params.permit(:name, :subject, :description)
-  # end
+  private
+
+  def quiz_params
+    params.permit(:name, :subject, :description)
+  end
 end
