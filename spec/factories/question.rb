@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :question do
-    question { "MyString" }
-    quiz { nil }
+    question { Faker::Quote.jack_handey  }
   end
 end
