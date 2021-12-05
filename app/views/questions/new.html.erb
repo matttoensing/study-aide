@@ -1,0 +1,38 @@
+<h3>Submit a Question the Answer for <%= @quiz.name %></h3>
+<%= form_with url: "/quizzes/#{@quiz.id}/questions", method: :post, local: true do |f| %>
+  <%= f.label :question, class: "form-control" %>
+  <%= f.text_field :question, class: "form-control" %>
+  <%= f.label :answer, class: "form-control" %>
+  <%= f.text_field :answer, placeholder: 'Answer to Question', class: "form-control" %>
+  <%= f.submit 'Submit', class: "form-control" %>
+<% end %>
+
+<% if !@quiz.questions.empty? %>
+  <h4>Current Quiz Questions</h4>
+
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Question</th>
+      <th scope="col">Answer</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <% @quiz.questions.each do |question| %>
+   <div id="question-<%= question.id %>">
+  <tbody>
+    <tr>
+      <th scope="row"><%= @quiz.questions.index(question) + 1 %></th>
+      <td><%= question.question %></td>
+      <td><%= question.answer.answer %></td>
+      <td><%= button_to 'Edit', "/quizzes/#{@quiz.id}/questions/#{question.id}/edit", method: :patch %></td>
+      <td><%= button_to 'Delete', "/quizzes/#{@quiz.id}/questions/#{question.id}", method: :delete %></td>
+    </tr>
+  </tbody>
+    </div>
+  <% end %>
+</table>
+  <%= button_to 'Finish Question Submissions' %>
+<% end %>
