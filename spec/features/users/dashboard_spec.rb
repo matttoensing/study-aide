@@ -53,5 +53,21 @@ RSpec.describe 'users dashboard page' do
         expect(page).to have_button('Visit Quiz Page')
       end
     end
+
+    it 'redirects user to quiz show page when clicking on visit button' do
+      user = create(:user)
+      quiz = create(:quiz, user: user)
+      quiz2 = create(:quiz, user: user)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit '/dashboard'
+
+      within "#quiz-#{quiz.id}" do
+        click_button 'Visit Quiz Page'
+      end
+
+      expect().to eq()
+    end
   end
 end
