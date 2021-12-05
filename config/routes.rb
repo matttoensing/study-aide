@@ -1,3 +1,8 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get '/', to: 'welcome#index'
+  post '/login', to: 'sessions#create'
+  
+  get '/register', to: 'users#new', as: 'register'
+  post '/register', to: 'users#create'
+  get '/dashboard', to: 'users#show'
 end

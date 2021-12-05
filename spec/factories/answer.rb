@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :answer do
-    answer { "MyString" }
-    question { nil }
+    answer { Faker::Quote.yoda }
   end
 end
