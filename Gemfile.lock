@@ -88,6 +88,8 @@ GEM
       concurrent-ruby (~> 1.0)
     jbuilder (2.11.3)
       activesupport (>= 5.0.0)
+    launchy (2.5.0)
+      addressable (~> 2.7)
     libv8-node (15.14.0.1)
     libv8-node (15.14.0.1-x86_64-darwin-20)
     listen (3.1.5)
@@ -256,6 +258,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   jbuilder (~> 2.5)
+  launchy
   listen (>= 3.0.5, < 3.2)
   mini_racer (~> 0.4.0)
   pg (>= 0.18, < 2.0)
