@@ -1,0 +1,57 @@
+<h3>Submit a Question the Answer for <%= @quiz.name %></h3>
+<%= form_with url: "/quizzes/#{@quiz.id}/questions", method: :post, local: true do |f| %>
+  <%= f.label :question, class: "form-control" %>
+  <%= f.text_field :question, class: "form-control" %>
+  <%= f.label :answer, class: "form-control" %>
+  <%= f.text_field :answer, placeholder: 'Answer to Question', class: "form-control" %>
+  <%= f.submit 'Submit', class: "btn btn-primary" %>
+<% end %>
+
+<% if !@quiz.questions.empty? %>
+  <h4>Current Quiz Questions</h4>
+
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Question</th>
+      <th scope="col">Answer</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <% @quiz.questions.each do |question| %>
+   <div id="question-<%= question.id %>">
+  <tbody>
+    <tr class="table-light">
+    <% if @question && @question.question == question.question %>
+
+      <th scope="row"><%= @quiz.questions.index(question) + 1 %></th>
+      <td><%= render partial: 'questions/edit', locals: { question: question } %></td>
+      <td><%= question.answer.answer %></td>
+      <td><%= button_to 'Edit Answer', "/quizzes/#{@quiz.id}/questions/new", method: :get, params: { edit: true, answer_id: question.answer.id}, class: 'btn btn-warning' %></td>
+      <td><%= button_to 'Delete Question', "/quizzes/#{@quiz.id}/questions/#{question.id}", method: :delete, class: 'btn btn-danger' %>/td>
+
+    <% elsif @answer && @answer.answer == question.answer.answer  %>
+
+      <th scope="row"><%= @quiz.questions.index(question) + 1 %></th>
+      <td><%= question.question %></td>
+      <td><%= render partial: 'answers/edit', locals: { answer: @answer, question: question } %></td>
+      <td><%= button_to 'Edit Question', "/quizzes/#{@quiz.id}/questions/new", method: :get, params: { edit: true, question_id: question.id}, class: 'btn btn-warning' %></td>
+      <td><%= button_to 'Delete Question', "/quizzes/#{@quiz.id}/questions/#{question.id}", method: :delete, class: 'btn btn-danger' %></td>
+
+    <% else %>
+      <th scope="row"><%= @quiz.questions.index(question) + 1 %></th>
+      <td><%= question.question %></td>
+      <td><%= question.answer.answer %></td>
+      <td><%= button_to 'Edit Question', "/quizzes/#{@quiz.id}/questions/new", method: :get, params: { edit: true, question_id: question.id}, class: 'btn btn-warning' %><br>
+      <%= button_to 'Edit Answer', "/quizzes/#{@quiz.id}/questions/new", method: :get, params: { edit: true, answer_id: question.answer.id}, class: 'btn btn-warning' %></td>
+      <td><%= button_to 'Delete Question', "/quizzes/#{@quiz.id}/questions/#{question.id}", method: :delete, class: 'btn btn-danger' %></td>
+    </tr>
+  </tbody>
+    </div>
+    <% end %>
+  <% end %>
+</table>
+  <%= button_to 'Finish Question Submissions' %>
+<% end %>

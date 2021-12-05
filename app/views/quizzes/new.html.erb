@@ -1,0 +1,10 @@
+<h3>Create A New Quiz</h3>
+<%= form_with url: '/quizzes', method: :post, local: true do |f| %>
+  <%= f.label :name, class: "form-control" %>
+  <%= f.text_field :name, class: "form-control" %>
+  <%= f.label :subject, class: "form-control" %>
+  <%= f.text_field :subject, class: "form-control" %>
+  <%= f.label :description, class: "form-control" %>
+  <%= f.text_field :description, class: "form-control" %>
+  <%= f.submit 'Create Quiz' %>
+<% end %>
