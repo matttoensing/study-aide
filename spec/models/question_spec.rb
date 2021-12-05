@@ -1,5 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Question, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+RSpec.describe Question do
+  describe 'relationships' do
+    it { should belong_to(:quiz) }
+    it { should have_one(:answer) }
+  end
 end
