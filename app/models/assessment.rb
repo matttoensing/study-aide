@@ -10,4 +10,8 @@ class Assessment < ApplicationRecord
     time = self.finishing_time.strftime('%s').to_i - self.starting_time.strftime('%s').to_i
     self.update(completed_time: time)
   end
+
+  def percent_correct
+    (self.score / self.number_of_questions) * 100
+  end
 end
