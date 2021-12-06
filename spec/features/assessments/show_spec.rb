@@ -16,9 +16,9 @@ RSpec.describe 'assessment show page' do
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
-      visit "/quizzes/#{quiz.id}/game"
+      visit "/quizzes/#{quiz.id}"
 
-      click_button 'Quiz'
+      click_button 'Take Quiz'
 
       assessment = Assessment.last
 
@@ -46,9 +46,9 @@ RSpec.describe 'assessment show page' do
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
-      visit "/quizzes/#{quiz.id}/game"
+      visit "/quizzes/#{quiz.id}"
 
-      click_button 'Quiz'
+      click_button 'Take Quiz'
 
       assessment = Assessment.last
 

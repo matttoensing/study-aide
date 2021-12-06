@@ -11,4 +11,28 @@ RSpec.describe Assessment, type: :model do
   describe 'validations' do
     it { should define_enum_for(:status).with(['in-progress', :completed, :cancelled]) }
   end
+
+  describe 'instance methods' do
+    describe '::finish_assessment' do
+      it 'can update time when assessment is completed' do
+        user = create(:user)
+        quiz = create(:quiz, user: user)
+        assessment = create(:assessment, starting_time: 120.seconds.ago, finishing_time: 10.seconds.ago, quiz: quiz, user: user)
+
+        assessment.finish_assessment
+
+        expect(assessment.completed_time).to eq(110)
+      end
+    end
+
+    describe '::percent_correct' do
+      it 'can show the percent correct from assessment' do
+        user = create(:user)
+        quiz = create(:quiz, user: user)
+        assessment = create(:assessment, score: 7.0, number_of_questions: 10, quiz: quiz, user: user)
+
+        expect(assessment.percent_correct).to eq(70)
+      end
+    end
+  end
 end

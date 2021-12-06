@@ -3,6 +3,7 @@
 <p><%= @quiz.description %></p>
 <p>Number of Questions: <%= @quiz.questions.count %></p>
 
-<%= button_to 'Take Quiz', "/quizzes/#{@quiz.id}/game", method: :get %>
+<%= button_to "Take Quiz", "/assessments", params: { quiz_id: @quiz.id, user_id: current_user.id }, method: :post, class: 'btn btn-success' %>
+<%= button_to 'FlashCards', "", method: :get %>
 <%= button_to 'Edit Quiz', "/quizzes/#{@quiz.id}/edit", method: :get %>
 <%= button_to 'Delete Quiz', "/quizzes/#{@quiz.id}", method: :delete %>

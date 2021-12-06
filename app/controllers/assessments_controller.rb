@@ -7,7 +7,7 @@ class AssessmentsController < ApplicationController
 
   def create
     quiz = Quiz.find(params[:quiz_id])
-    assessment = Assessment.create(score: 0, number_of_questions: quiz.questions.count, time: Time.now, quiz: quiz, user_id: params[:user_id])
+    assessment = Assessment.create(score: 0, number_of_questions: quiz.questions.count, starting_time: Time.now, quiz: quiz, user_id: params[:user_id])
 
     redirect_to "/assessments/#{assessment.id}?question=0"
   end
@@ -20,7 +20,10 @@ class AssessmentsController < ApplicationController
     end
 
     if params[:assessment]
-      flash[:success] = "You Scored #{assessment.score} out of #{assessment.number_of_questions}"
+      assessment.update(finishing_time: Time.now)
+      assessment.finish_assessment
+
+      flash[:success] = "You Scored #{assessment.score} out of #{assessment.number_of_questions} in #{assessment.completed_time} seconds"
       redirect_to '/dashboard'
     else
       redirect_to "/assessments/#{assessment.id}?question=#{(params[:question].to_i + 1)}"

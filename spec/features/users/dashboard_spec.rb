@@ -69,5 +69,37 @@ RSpec.describe 'users dashboard page' do
 
       expect(current_path).to eq("/quizzes/#{quiz.id}")
     end
+
+    it 'users assessments for their quizzes are shown on dashboard with results' do
+      user = create(:user)
+      quiz = create(:quiz, user: user)
+      quiz2 = create(:quiz, user: user)
+      assessment = create(:assessment, starting_time: Time.now, user: user, quiz: quiz)
+      assessment2 = create(:assessment, starting_time: Time.now, user: user, quiz: quiz2)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit '/dashboard'
+
+      within "#quiz-#{quiz.id}" do
+        within "#assessment-#{assessment.id}" do
+          expect(page).to have_content(assessment.starting_time.strftime('%a %b%e, %Y'))
+          expect(page).to have_content(assessment.percent_correct)
+        end
+      end
+    end
+
+    it 'no assessment iformation will be shown if a user has not completed a quiz assessment' do
+      user = create(:user)
+      quiz = create(:quiz, user: user)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit '/dashboard'
+
+      within "#quiz-#{quiz.id}" do
+        expect(page).to_not have_css("#assessment-1")
+      end
+    end
   end
 end

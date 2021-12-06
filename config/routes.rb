@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   post '/register', to: 'users#create'
   get '/dashboard', to: 'users#show'
 
-  get '/quizzes/:id/game', to: 'game#show'
   get '/discover', to: 'search#index'
 
   resources :questions do

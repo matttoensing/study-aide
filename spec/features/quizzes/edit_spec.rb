@@ -4,6 +4,7 @@ require 'rails_helper'
    it 'displays a form to edit a quiz' do
      user = create(:user)
      quiz = create(:quiz, user: user)
+     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
      visit "/quizzes/#{quiz.id}/edit"
 
