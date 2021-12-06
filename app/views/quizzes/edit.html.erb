@@ -1,0 +1,10 @@
+<h3>Create A New Quiz</h3>
+<%= form_with url: "/quizzes/#{@quiz.id}", method: :patch, local: true do |f| %>
+  <%= f.label :name, class: "form-control" %>
+  <%= f.text_field :name, value: @quiz.name, class: "form-control" %>
+  <%= f.label :subject, class: "form-control" %>
+  <%= f.text_field :subject, value: @quiz.subject, class: "form-control" %>
+  <%= f.label :description, class: "form-control" %>
+  <%= f.text_field :description, value: @quiz.description, class: "form-control" %>
+  <%= f.submit 'Submit' %>
+<% end %>
