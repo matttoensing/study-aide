@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get '/dashboard', to: 'users#show'
 
   get '/quizzes/:id/game', to: 'game#show'
+  get '/discover', to: 'search#index'
 
   resources :questions do
     resources :answers, only: [:update]
