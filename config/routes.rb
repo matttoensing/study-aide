@@ -17,4 +17,6 @@ Rails.application.routes.draw do
   resources :quizzes do
     resources :questions, only: [:new, :create, :update, :destroy]
   end
+
+  resources :assessments, only: [:show, :create, :update]
 end

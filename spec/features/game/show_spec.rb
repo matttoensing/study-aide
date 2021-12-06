@@ -5,6 +5,7 @@ require 'rails_helper'
      it 'displays buttons for flashcards and for quiz formats' do
        user = create(:user)
        quiz = create(:quiz, user: user)
+       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
        visit "/quizzes/#{quiz.id}/game"
 
