@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get '/', to: 'welcome#index'
   post '/login', to: 'sessions#create'
+  get '/logout', to: 'sessions#destroy', as: 'logout'
 
   get '/register', to: 'users#new', as: 'register'
   post '/register', to: 'users#create'
