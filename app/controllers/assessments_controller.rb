@@ -20,8 +20,10 @@ class AssessmentsController < ApplicationController
     end
 
     if params[:assessment]
-      assessment.update(score: assessment.score += 1, finishing_time: Time.now, completed_time: assessment.finish_assessment)
-      flash[:success] = "You Scored #{assessment.score} out of #{assessment.number_of_questions}"
+      assessment.update(score: assessment.score += 1, finishing_time: Time.now)
+      assessment.finish_assessment
+
+      flash[:success] = "You Scored #{assessment.score} out of #{assessment.number_of_questions} in #{assessment.completed_time} seconds"
       redirect_to '/dashboard'
     else
       redirect_to "/assessments/#{assessment.id}?question=#{(params[:question].to_i + 1)}"
