@@ -7,4 +7,8 @@ RSpec.describe Assessment, type: :model do
     it { should have_many(:questions).through(:quiz) }
     it { should have_many(:answers).through(:quiz) }
   end
+
+  describe 'validations' do
+    it { should define_enum_for(:status).with(['in-progress', :completed, :cancelled]) }
+  end
 end
