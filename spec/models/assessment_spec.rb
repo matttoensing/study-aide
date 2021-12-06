@@ -19,15 +19,9 @@ RSpec.describe Assessment, type: :model do
         quiz = create(:quiz, user: user)
         assessment = create(:assessment, starting_time: 120.seconds.ago, finishing_time: 10.seconds.ago, quiz: quiz, user: user)
 
-        assessment_time = 110.seconds.ago
-        time_today = "Sat, 01 Jan 2000 18:15:48 UTC +00:00".to_time
-
-        allow(Time).to receive(:now).and_return(assessment_time)
-        allow(Time).to receive(:at).and_return(assessment_time)
-
         assessment.finish_assessment
-require "pry"; binding.pry
-        expect(assessment.completed_time).to eq(Time.at(assessment_time))
+
+        expect(assessment.completed_time).to eq(110)
       end
     end
   end
