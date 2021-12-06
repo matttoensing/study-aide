@@ -24,5 +24,15 @@ RSpec.describe Assessment, type: :model do
         expect(assessment.completed_time).to eq(110)
       end
     end
+
+    describe '::percent_correct' do
+      it 'can show the percent correct from assessment' do
+        user = create(:user)
+        quiz = create(:quiz, user: user)
+        assessment = create(:assessment, score: 7.0, number_of_questions: 10, quiz: quiz, user: user)
+
+        expect(assessment.percent_correct).to eq(70)
+      end
+    end
   end
 end
