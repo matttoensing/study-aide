@@ -1,13 +1,24 @@
-<h3>@question.question</h3> <h4>Question <%= @question_num %> out of <%= @assessment.number_of_questions %></h4>
+<h3><%= @question.question %></h3> <h4>Question <%= @question_num %> of <%= @assessment.number_of_questions %></h4>
 
 <% @question.question_answers.each do |answer| %>
+<% if @question == @assessment.questions.last %>
 <div id="answer-<%= answer.id %>">
   <% if answer == @question.answer %>
     <%= answer.answer %>
-    <%= button_to 'Select Answer', "/assessments/#{@assessment.id}", params: { answer: :correct, question_id: @question.id, answer_id: answer.id} %>
-  <% else %>
+    <%= button_to 'Select Results', "/assessments/#{@assessment.id}", params: { answer: :correct, question_id: @question.id, answer_id: answer.id, assessment: :completed }, method: :patch %>
+  <% elsif answer != @question.answer %>
     <%= answer.answer %>
-    <%= button_to 'Select Answer', "/assessments/#{@assessment.id}", params: { answer: :wrong, question_id: @question.id, answer_id: answer.id} %>
+    <%= button_to 'Select Answer', "/assessments/#{@assessment.id}", params: { answer: :wrong, question_id: @question.id, answer_id: answer.id, assessment: :completed  }, method: :patch %>
+  <% end %>
+<% else %>
+<div id="answer-<%= answer.id %>">
+  <% if answer == @question.answer %>
+    <%= answer.answer %>
+    <%= button_to 'Select Answer', "/assessments/#{@assessment.id}", params: { answer: :correct, question_id: @question.id, answer_id: answer.id, question: (@question_num - 1) }, method: :patch %>
+  <% elsif answer != @question.answer %>
+    <%= answer.answer %>
+    <%= button_to 'Select Answer', "/assessments/#{@assessment.id}", params: { answer: :wrong, question_id: @question.id, answer_id: answer.id, question: (@question_num - 1) }, method: :patch %>
   <% end %>
   </div>
+  <% end %>
 <% end %>

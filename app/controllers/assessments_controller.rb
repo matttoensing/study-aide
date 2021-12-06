@@ -11,4 +11,19 @@ class AssessmentsController < ApplicationController
 
     redirect_to "/assessments/#{assessment.id}?question=0"
   end
+
+  def update
+    assessment = Assessment.find(params[:id])
+
+    if params[:answer] == 'correct'
+      assessment.update(score: assessment.score += 1)
+    end
+
+    if params[:assessment]
+      flash[:success] = "You Scored #{assessment.score} out of #{assessment.number_of_questions}"
+      redirect_to '/dashboard'
+    else
+      redirect_to "/assessments/#{assessment.id}?question=#{(params[:question].to_i + 1)}"
+    end
+  end
 end

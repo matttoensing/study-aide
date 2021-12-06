@@ -18,5 +18,5 @@ Rails.application.routes.draw do
     resources :questions, only: [:new, :create, :update, :destroy]
   end
 
-  resources :assessments, only: [:show, :create]
+  resources :assessments, only: [:show, :create, :update]
 end
