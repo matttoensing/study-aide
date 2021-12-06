@@ -3,14 +3,15 @@ class Question < ApplicationRecord
   has_one :answer, dependent: :destroy
 
   def question_answers
-    answers = [self.answer]
+    game_answers = [self.answer]
     quiz_answers = self.quiz.answers.shuffle
-    
-    until answers.length == 4
+
+    until game_answers.length == 4
       quiz_answers.each do |answer|
-        answers << answer
+        game_answers << answer
       end
     end
-    answers.shiffle
+
+    game_answers.shuffle
   end
 end

@@ -1,0 +1,13 @@
+<h3>@question.question</h3> <h4>Question <%= @question_num %> out of <%= @assessment.number_of_questions %></h4>
+
+<% @question.question_answers.each do |answer| %>
+<div id="answer-<%= answer.id %>">
+  <% if answer == @question.answer %>
+    <%= answer.answer %>
+    <%= button_to 'Select Answer', "/assessments/#{@assessment.id}", params: { answer: :correct, question_id: @question.id, answer_id: answer.id} %>
+  <% else %>
+    <%= answer.answer %>
+    <%= button_to 'Select Answer', "/assessments/#{@assessment.id}", params: { answer: :wrong, question_id: @question.id, answer_id: answer.id} %>
+  <% end %>
+  </div>
+<% end %>
