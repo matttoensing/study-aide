@@ -20,11 +20,22 @@ RSpec.describe Question do
         question4 = create(:question, quiz: quiz)
         answer4 = create(:answer, question: question4)
 
-        expected = [answer2, answer3, answer4, answer1]
 
-        allow(question1).to receive(:question_answers).and_return(expected)
+        expect(question1.question_answers.length).to eq(4)
+      end
 
-        expect(question1.question_answers).to eq(expected)
+      it 'creates a collection of answers for all answers if the quiz questions length is shorter than 4' do
+        user = create(:user)
+        quiz = create(:quiz, user: user)
+        question1 = create(:question, quiz: quiz)
+        answer1 = create(:answer, question: question1)
+        question2 = create(:question, quiz: quiz)
+        answer2 = create(:answer, question: question2)
+        question3 = create(:question, quiz: quiz)
+        answer3 = create(:answer, question: question3)
+
+
+        expect(question1.question_answers.length).to eq(3)
       end
     end
   end
